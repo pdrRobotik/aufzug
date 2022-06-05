@@ -1,13 +1,11 @@
 #include <FtduinoSimple.h>
 #include <AccessNode.h>
 
-void setup()
-{
-  Serial.begin(9600);
+void setup() {
+  
 }
 
-void loop()
-{
+void loop() {
   // put your main code here, to run repeatedly:
   run();
 }
