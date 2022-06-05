@@ -1,8 +1,13 @@
 #include <FtduinoSimple.h>
 #include <AccessNode.h>
 
+int i3Wert = 0;
+RobotikInterConnect* ric;
+int counter = 0;
+bool isClicked = false;
+
 void setup() {
-  
+  ric = new RobotikInterConnect("aufzug");
 }
 
 void loop() {
@@ -19,11 +24,15 @@ void loop() {
 
 void run()
 {
+  
   // Aufzug fährt in die Ausgangsposition
   ftduino.motor_set(Ftduino::M3, Ftduino::RIGHT);
   while (!ftduino.input_get(Ftduino::I1)) delay(1);
   ftduino.motor_set(Ftduino::M3, Ftduino::OFF);
 
+  ric->send("mfc","websocket","OK");
+  ric->read_wait();
+  
   // Lichtschranke wird überprüft
   ftduino.motor_set(Ftduino::M2, Ftduino::LEFT);
   while (ftduino.input_get(Ftduino::I3)) delay(1);
@@ -33,6 +42,9 @@ void run()
   // Aufzug fährt nach oben
   ftduino.motor_set(Ftduino::M3, Ftduino::LEFT);
   while (!ftduino.input_get(Ftduino::I2)) delay(1);
+  
+  ric->send("mfc","websocket","OK");
+  ric->read_wait();
   // Laufbänder gehen an und wieder aus
   delay(700);
   ftduino.motor_set(Ftduino::M3, Ftduino::OFF);
