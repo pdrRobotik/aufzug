@@ -39,7 +39,7 @@ void run()
   delay(800);
   ftduino.motor_set(Ftduino::M2, Ftduino::OFF);
   
-  ric->send("mfc","websocket","OK");
+  ric->send("mfc","websocket","NEXT");
   ric->read_wait();
   
   // Aufzug fährt nach oben
