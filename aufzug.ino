@@ -38,13 +38,14 @@ void run()
   while (ftduino.input_get(Ftduino::I3)) delay(1);
   delay(800);
   ftduino.motor_set(Ftduino::M2, Ftduino::OFF);
-
+  
+  ric->send("mfc","websocket","OK");
+  ric->read_wait();
+  
   // Aufzug fährt nach oben
   ftduino.motor_set(Ftduino::M3, Ftduino::LEFT);
   while (!ftduino.input_get(Ftduino::I2)) delay(1);
   
-  ric->send("mfc","websocket","OK");
-  ric->read_wait();
   // Laufbänder gehen an und wieder aus
   delay(700);
   ftduino.motor_set(Ftduino::M3, Ftduino::OFF);
